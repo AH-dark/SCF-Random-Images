@@ -47,8 +47,6 @@ function main_handler($event, $context) {
 	];
 
 	$image = $images[array_rand($images)];
-	
-	echo "Path: ".$event->path."\n";
 
 	switch($event->path){
         case '/RandomImages/json':
@@ -56,7 +54,8 @@ function main_handler($event, $context) {
 				'isBase64Encoded' => false,
 				'statusCode' => 200,
 				'headers' => [ 
-					"content-type" => "application/json"
+                    "content-type" => "application/json",
+                    "access-control-allow-origin" => "*"
 				],
 				'body' => json_encode(["url => $image"])
 			];
@@ -67,7 +66,8 @@ function main_handler($event, $context) {
                 'isBase64Encoded' => false,
                 'statusCode' => 200,
                 'headers' => [ 
-                    "content-type" => "text/text"
+                    "content-type" => "text/text",
+                    "access-control-allow-origin" => "*"
                 ],
                 'body' => $image
             ];
@@ -78,7 +78,8 @@ function main_handler($event, $context) {
 				'isBase64Encoded' => false,
 				'statusCode' => 302,
 				'headers' => [ 
-					"content-type" => "image/jpeg",
+                    "content-type" => "image/jpeg",
+                    "access-control-allow-origin" => "*",
 					"Location" => $image
 				],
 				'body' => ""
